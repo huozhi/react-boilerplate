@@ -28,7 +28,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.(html|png)$/,
+        test: /\.(html|png|jpg|svg)$/,
         loader: 'file?name=[name].[ext]'
       },
       {
@@ -50,10 +50,6 @@ module.exports = {
         exclude: /node_modules/,
         loaders: ['react-hot','babel']
       },
-      // {
-      //   test: /.png$/,
-      //   loader: 'url',
-      // },
     ]
   },
   resolve: {
@@ -62,7 +58,9 @@ module.exports = {
   postcss: [
     rucksack({
       autoprefixer: true,
-    })
+    }),
+    require('postcss-nested'),
+    require('postcss-import'),
   ],
   plugins: [
     new webpack.DefinePlugin({
