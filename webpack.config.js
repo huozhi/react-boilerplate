@@ -4,14 +4,20 @@ const path = require('path')
 const webpack = require('webpack')
 const rucksack = require('rucksack-css')
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const plugins = [
   new webpack.DefinePlugin({
     'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'dev')}
   }),
+  new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
 ]
 
 if (isProduction) {
-  plugins.push(new webpack.UglifyJsPlugin({ compress: { warning: false } }))
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: { warning: false },
+    output: { comments: false },
+  }))
 }
 
 module.exports = {
@@ -19,8 +25,12 @@ module.exports = {
   entry: {
     jsx: './index.js',
     html: './index.html',
+    vendor: [
+      'react',
+      'react-dom',
+    ]
   },
-  devtool: 'eval',
+  devtool: isProduction ? false : 'eval',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
