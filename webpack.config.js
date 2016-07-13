@@ -3,6 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const rucksack = require('rucksack-css')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -10,22 +11,30 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'dev')}
   }),
-  new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'common',
+    filename: 'common.js',
+  }),
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: path.join(__dirname, 'src/index.html'),
+    minify: false,
+  }),
 ]
 
 if (isProduction) {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: { warning: false },
-    output: { comments: false },
-  }))
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: { warnings: false },
+      output: { comments: false },
+    })
+  )
 }
 
 module.exports = {
-  context: path.join(__dirname, 'src'),
   entry: {
-    jsx: './index.js',
-    html: './index.html',
-    vendor: [
+    app: [path.join(__dirname, 'src/index.js')],
+    common: [
       'react',
       'react-dom',
     ]
@@ -33,12 +42,12 @@ module.exports = {
   devtool: isProduction ? false : 'eval',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].js',
   },
   module: {
     loaders: [
       {
-        test: /\.(html|png|jpg|svg)$/,
+        test: /\.(png|jpg|svg)$/,
         loader: 'file?name=[name].[ext]'
       },
       {
@@ -72,13 +81,9 @@ module.exports = {
     require('postcss-nested'),
     require('postcss-import'),
   ],
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'dev')}
-    })
-  ],
+  plugins,
   devServer: {
-    contentBase: './src',
+    contentBase: 'src',
     hot: true,
     inline: true,
     stats: {
