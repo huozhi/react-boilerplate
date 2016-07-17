@@ -72,14 +72,16 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.js']
+    extensions: ['', '.js', '.jsx']
   },
-  postcss: [
+  postcss: webpack => [
     rucksack({
       autoprefixer: true,
     }),
     require('postcss-nested'),
     require('postcss-import'),
+    require('postcss-custom-media'),
+    require('postcss-custom-properties'),
   ],
   plugins,
   devServer: {

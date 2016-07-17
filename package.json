@@ -27,6 +27,8 @@
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
+    "postcss-custom-media": "^5.0.1",
+    "postcss-custom-properties": "^5.0.1",
     "postcss-import": "^8.1.2",
     "postcss-loader": "^0.9.1",
     "postcss-nested": "^1.0.0",
