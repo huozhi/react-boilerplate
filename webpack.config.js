@@ -2,11 +2,10 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const rucksack = require('rucksack-css')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
-
+const a = 'sb'
 const plugins = [
   new webpack.DefinePlugin({
     'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'dev')}
@@ -39,7 +38,6 @@ module.exports = {
       'react-dom',
     ]
   },
-  devtool: isProduction ? false : 'eval',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
@@ -60,11 +58,6 @@ module.exports = {
         ]
       },
       {
-        test: /\.css$/,
-        exclude: /src/,
-        loader: 'style!css'
-      },
-      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loaders: ['react-hot','babel']
@@ -75,11 +68,8 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   postcss: webpack => [
-    rucksack({
-      autoprefixer: true,
-    }),
+    require('postcss-import')({addDependencyTo: webpack}),
     require('postcss-nested'),
-    require('postcss-import'),
     require('postcss-custom-media'),
     require('postcss-custom-properties'),
   ],
