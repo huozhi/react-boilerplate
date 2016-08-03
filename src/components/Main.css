@@ -1,0 +1,15 @@
+.Main {
+  padding-top: 10px;
+}
+
+.Main-section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.Button {
+  padding: 8px 16px;
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+}

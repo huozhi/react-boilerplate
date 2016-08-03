@@ -3,7 +3,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractPlugin = require('extract-text-webpack-plugin')
 
 
 module.exports = {
@@ -19,11 +18,6 @@ module.exports = {
       {
         test: /\.(png|jpe?g)$/,
         loader: 'file?name=images/[name].[ext]',
-      },
-      {
-        test: /\.css$/,
-        include: /src/,
-        loader: ExtractPlugin.extract('style', 'css!postcss'),
       },
     ]
   },

@@ -1,3 +1,5 @@
+'use strict'
+
 const url = require('url')
 const path = require('path')
 const webpack = require('webpack')
@@ -18,7 +20,12 @@ module.exports = Object.assign({}, config, {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel'
-      }
+      },
+      {
+        test: /\.css$/,
+        include: /src/,
+        loader: ExtractPlugin.extract('style', 'css!postcss'),
+      },
     ]),
   }),
   plugins: config.plugins.concat([

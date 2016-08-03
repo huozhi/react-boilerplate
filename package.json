@@ -6,8 +6,8 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "start": "nodemon --watch __mocks__ ./devserver.js",
-    "build": "npm run clean && NODE_ENV=production webpack --bail",
-    "build:dev": "webpack --progress --colors"
+    "build": "npm run clean && NODE_ENV=production webpack --config webpack.config.prod.js --bail",
+    "build:dev": "webpack --progress --colors --config webpack.config.dev.js"
   },
   "author": "huozhi",
   "devDependencies": {
@@ -45,6 +45,9 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.12.2"
+  },
+  "engines" : {
+    "node" : ">=4.0"
   },
   "license": "MIT"
 }

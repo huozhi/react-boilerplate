@@ -1,19 +1,18 @@
+'use strict'
+
 const path = require('path')
 const webpack = require('webpack')
-const ExtractPlugin = require('extract-text-webpack-plugin')
 const config = require('./webpack.config')
 
 const hotMiddlewareScript = 'webpack-hot-middleware/client'
 
 const hotreloadEntry = (entry) => {
   return Object.keys(entry).reduce((result, key) => {
-    entry[key].unshift(hotMiddlewareScript)
-    result[key] = entry[key]
+    result[key] = entry[key].concat([hotMiddlewareScript])
     return result
   }, {})
 }
 
-console.info(hotreloadEntry(config.entry))
 
 module.exports = Object.assign({}, config, {
   entry: hotreloadEntry(config.entry),
@@ -28,6 +27,11 @@ module.exports = Object.assign({}, config, {
         exclude: /node_modules/,
         loader: 'react-hot!babel'
       },
+      {
+        test: /\.css$/,
+        include: /src/,
+        loader: 'style!css!postcss',
+      },
     ]),
   }),
   plugins: config.plugins.concat([
@@ -39,7 +43,7 @@ module.exports = Object.assign({}, config, {
       name: 'common',
       filename: 'common.js'
     }),
-    new ExtractPlugin('app.css', {allChunks: true}),
+    // new ExtractPlugin('app.css', {allChunks: true}),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ]),

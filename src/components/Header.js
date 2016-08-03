@@ -1,16 +1,15 @@
-import React, { Component } from 'react'
-import style from './Header.css'
+import React, {Component} from 'react'
+import './Header.css'
 
 class Header extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
+    const {brand} = this.props
+
     return (
-      <header className={style.header}>
-        <h1>header</h1>
-        <h3>subtitle</h3>
+      <header className="Header">
+        <div className="Container">
+          <h2>{brand}</h2>
+        </div>
       </header>
     )
   }
