@@ -3,69 +3,29 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractPlugin = require('extract-text-webpack-plugin')
 
-const isProduction = process.env.NODE_ENV === 'production'
-const a = 'sb'
-const plugins = [
-  new webpack.DefinePlugin({
-    'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'dev')}
-  }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'common',
-    filename: 'common.js',
-  }),
-  new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: path.join(__dirname, 'src/index.html'),
-    minify: false,
-  }),
-]
-
-if (isProduction) {
-  plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false },
-      output: { comments: false },
-    })
-  )
-}
 
 module.exports = {
   entry: {
     app: [path.join(__dirname, 'src/index.js')],
-    common: [
-      'react',
-      'react-dom',
-    ]
   },
   output: {
+    publicPath: '/',
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
   },
   module: {
     loaders: [
       {
-        test: /\.(png|jpg|svg)$/,
-        loader: 'file?name=[name].[ext]'
+        test: /\.(png|jpe?g)$/,
+        loader: 'file?name=images/[name].[ext]',
       },
       {
         test: /\.css$/,
         include: /src/,
-        loaders: [
-          'style',
-          'css?modules&sourceMap&importLoaders=1&localIdentName=[local]___[hash:base64:5]',
-          'postcss'
-        ]
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loaders: ['react-hot','babel']
+        loader: ExtractPlugin.extract('style', 'css!postcss'),
       },
     ]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
   },
   postcss: webpack => [
     require('postcss-import')({addDependencyTo: webpack}),
@@ -73,9 +33,14 @@ module.exports = {
     require('postcss-custom-media'),
     require('postcss-custom-properties'),
   ],
-  plugins,
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.join(__dirname, 'index.html'),
+      minify: false,
+    }),
+  ],
   devServer: {
-    contentBase: 'src',
     hot: true,
     inline: true,
     stats: {
