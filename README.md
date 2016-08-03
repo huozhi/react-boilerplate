@@ -1,5 +1,4 @@
 # react-boilerplate
-> a fast front-end react webpack boilerplate
 
 ### Setup 
 
