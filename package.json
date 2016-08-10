@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "clean": "rm -rf dist/",
+    "lint": "eslint .; exit 0",
     "start": "nodemon --watch __mocks__ ./devserver.js",
     "build": "npm run clean && NODE_ENV=production webpack --config webpack.config.prod.js --bail",
     "build:dev": "webpack --progress --colors --config webpack.config.dev.js"
@@ -13,6 +14,7 @@
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.10.4",
+    "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-runtime": "^6.9.0",
@@ -23,6 +25,9 @@
     "classnames": "^2.2.5",
     "cookie-parser": "^1.4.3",
     "css-loader": "^0.23.1",
+    "eslint": "^3.2.2",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-react": "^6.0.0",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",

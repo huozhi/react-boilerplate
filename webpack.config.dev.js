@@ -1,6 +1,5 @@
 'use strict'
 
-const path = require('path')
 const webpack = require('webpack')
 const config = require('./webpack.config')
 
@@ -25,7 +24,7 @@ module.exports = Object.assign({}, config, {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'react-hot!babel'
+        loader: 'react-hot!babel',
       },
       {
         test: /\.css$/,
@@ -41,7 +40,7 @@ module.exports = Object.assign({}, config, {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
-      filename: 'common.js'
+      filename: 'common.js',
     }),
     // new ExtractPlugin('app.css', {allChunks: true}),
     new webpack.optimize.OccurenceOrderPlugin(),

@@ -1,7 +1,5 @@
 'use strict'
 
-const url = require('url')
-const path = require('path')
 const webpack = require('webpack')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const config = require('./webpack.config')
@@ -19,7 +17,7 @@ module.exports = Object.assign({}, config, {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel',
       },
       {
         test: /\.css$/,
@@ -36,11 +34,11 @@ module.exports = Object.assign({}, config, {
     new ExtractPlugin('app.[contenthash:hex:20].css', {allChunks: true}),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
-      filename: 'common.[hash].js'
+      filename: 'common.[hash].js',
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {warnings: false},
       output: {comments: false},
-    })
+    }),
   ]),
 })

@@ -1,17 +1,17 @@
 'use strict'
 
 const path = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const joinPath = path.join.bind(null, __dirname)
 
 
 module.exports = {
   entry: {
-    app: [path.join(__dirname, 'src/index.js')],
+    app: [joinPath('src/index.js')],
   },
   output: {
     publicPath: '/',
-    path: path.join(__dirname, 'dist'),
+    path: joinPath('dist'),
   },
   module: {
     loaders: [
@@ -19,8 +19,18 @@ module.exports = {
         test: /\.(png|jpe?g)$/,
         loader: 'file?name=images/[name].[ext]',
       },
-    ]
+    ],
   },
+  eslint: {
+    configFile: joinPath('.eslintrc'),
+  },
+  preLoaders: [
+    {
+      test: /\.js$/,
+      loader: 'eslint',
+      exclude: /node_modules/,
+    },
+  ],
   postcss: webpack => [
     require('postcss-import')({addDependencyTo: webpack}),
     require('postcss-nested'),
@@ -41,6 +51,6 @@ module.exports = {
       colors: true,
       chunks: false,
       chunkModules: false,
-    }
-  }
+    },
+  },
 }

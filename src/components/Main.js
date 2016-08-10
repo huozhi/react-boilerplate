@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import './Main.css'
 
-class Main extends Component {
+export default class Main extends Component {
+
   state = {toggler: true}
 
   handleClick = () => {
     const {toggler} = this.state
-    this.setState({ toggler: !toggler })
+    this.setState({toggler: !toggler})
   }
 
   render() {
@@ -33,4 +34,6 @@ class Main extends Component {
   }
 }
 
-export default Main
+Main.propTypes = {
+  children: React.PropTypes.node,
+}

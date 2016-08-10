@@ -23,7 +23,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
     colors: true,
     chunks: false,
     chunkModules: false,
-  }
+  },
 }))
 app.use(require('webpack-hot-middleware')(compiler))
 
@@ -40,7 +40,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET,PATCH,PUT,POST,DELETE,OPTIONS')
   next()
 })
-
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './src/index-dev.html'))

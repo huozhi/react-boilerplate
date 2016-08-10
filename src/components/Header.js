@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import './Header.css'
 
-class Header extends Component {
+export default class Header extends Component {
+  static PropTypes
+
   render() {
     const {brand} = this.props
 
@@ -15,4 +17,6 @@ class Header extends Component {
   }
 }
 
-export default Header
+Header.propTypes = {
+  brand: React.PropTypes.string,
+}
