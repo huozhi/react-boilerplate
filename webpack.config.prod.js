@@ -1,6 +1,8 @@
 'use strict'
 
+const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const config = require('./webpack.config')
 
@@ -27,9 +29,10 @@ module.exports = Object.assign({}, config, {
     ]),
   }),
   plugins: config.plugins.concat([
-    new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: JSON.stringify('production')},
-      __DEV__: false,
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.join(__dirname, 'index.html'),
+      minify: false,
     }),
     new ExtractPlugin('app.[contenthash:hex:20].css', {allChunks: true}),
     new webpack.optimize.CommonsChunkPlugin({

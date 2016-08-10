@@ -34,15 +34,10 @@ module.exports = Object.assign({}, config, {
     ]),
   }),
   plugins: config.plugins.concat([
-    new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: JSON.stringify(process.env.NODE_ENV)},
-      __DEV__: true,
-    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       filename: 'common.js',
     }),
-    // new ExtractPlugin('app.css', {allChunks: true}),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ]),

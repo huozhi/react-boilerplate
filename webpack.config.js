@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 const joinPath = path.join.bind(null, __dirname)
 
 
@@ -38,10 +38,9 @@ module.exports = {
     require('postcss-custom-properties'),
   ],
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.join(__dirname, 'index.html'),
-      minify: false,
+    new webpack.DefinePlugin({
+      'process.env': {NODE_ENV: JSON.stringify()},
+      __DEV__: process.env.NODE_ENV !== 'production',
     }),
   ],
   devServer: {

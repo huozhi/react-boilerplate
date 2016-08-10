@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser')
 const express = require('express')
 const morgan = require('morgan')
 const webpack = require('webpack')
-// const router = require('./__mocks__/api')
+const router = require('./__mock__/api')
 
 global.__DEV__ = process.env.NODE_ENV !== 'production'
 
@@ -30,7 +30,7 @@ app.use(require('webpack-hot-middleware')(compiler))
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
-app.use(morgan('tiny'))
+app.use(morgan('dev'))
 
 // cors middleware
 app.use((req, res, next) => {
@@ -41,8 +41,10 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use(router)
+
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './src/index-dev.html'))
+  res.sendFile(path.join(__dirname, './index-dev.html'))
 })
 
 app.use((req, res) => {
