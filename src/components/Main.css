@@ -1,13 +1,14 @@
-.Main {
-  padding-top: 10px;
+.wrapper {
+  max-width: 960px;
+  margin: auto;
 }
 
-.Main-section {
+.section {
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.Button {
+.btn {
   padding: 8px 16px;
   background: #fff;
   border-radius: 3px;

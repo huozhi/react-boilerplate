@@ -1,5 +1,3 @@
-'use strict'
-
 const path = require('path')
 const webpack = require('webpack')
 const joinPath = path.join.bind(null, __dirname)
@@ -33,9 +31,7 @@ module.exports = {
   ],
   postcss: webpack => [
     require('postcss-import')({addDependencyTo: webpack}),
-    require('postcss-nested'),
-    require('postcss-custom-media'),
-    require('postcss-custom-properties'),
+    require('postcss-cssnext'),
   ],
   plugins: [
     new webpack.DefinePlugin({

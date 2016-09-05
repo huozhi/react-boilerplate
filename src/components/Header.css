@@ -1,7 +1,12 @@
-.Header {
+.header {
   position: relative;
   width: 100%;
   padding: 16px 0;
   border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.container {
+  margin: auto;
+  max-width: 960px;
 }

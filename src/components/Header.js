@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './Header.css'
+import styles from './Header.css'
 
 export default class Header extends Component {
   static PropTypes
@@ -8,8 +8,8 @@ export default class Header extends Component {
     const {brand} = this.props
 
     return (
-      <header className="Header">
-        <div className="Container">
+      <header className={styles.header}>
+        <div className={styles.container}>
           <h2>{brand}</h2>
         </div>
       </header>

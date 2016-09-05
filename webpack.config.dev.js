@@ -29,7 +29,7 @@ module.exports = Object.assign({}, config, {
       {
         test: /\.css$/,
         include: /src/,
-        loader: 'style!css!postcss',
+        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:3]!postcss',
       },
     ]),
   }),

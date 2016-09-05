@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './Main.css'
+import styles from './Main.css'
 
 export default class Main extends Component {
 
@@ -14,20 +14,18 @@ export default class Main extends Component {
     const {toggler} = this.state
 
     return (
-      <div className="Main">
-        <div className="Container">
-          <div className="Main-section">
-            {this.props.children}
-          </div>
+      <div className={styles.wrapper}>
+        <div className={styles.section}>
+          {this.props.children}
+        </div>
 
-          <div className="Main-section">
-            <button
-              className="Button"
-              onClick={this.handleClick}
-            >
-              {toggler ? 'hello' : 'world'}
-            </button>
-          </div>
+        <div className={styles.section}>
+          <button
+            className={styles.btn}
+            onClick={this.handleClick}
+          >
+            {toggler ? 'hello' : 'world'}
+          </button>
         </div>
       </div>
     )

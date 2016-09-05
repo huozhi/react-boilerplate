@@ -24,7 +24,7 @@ module.exports = Object.assign({}, config, {
       {
         test: /\.css$/,
         include: /src/,
-        loader: ExtractPlugin.extract('style', 'css!postcss'),
+        loader: ExtractPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:3]!postcss'),
       },
     ]),
   }),
