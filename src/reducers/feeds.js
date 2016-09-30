@@ -1,9 +1,8 @@
 import {handleActions} from 'redux-actions'
-import {FETCH_FEEDS} from '../actions/feeds'
+import {UPDATE_FEEDS} from '../actions/feeds'
+
+const initialState = []
 
 export default handleActions({
-  [`${FETCH_FEEDS}_PENDING`]: (state) => {
-    ...state,
-    isPending: true,
-  }
-})
+  [UPDATE_FEEDS]: (state, {payload: feeds}) => feeds,
+}, initialState)
