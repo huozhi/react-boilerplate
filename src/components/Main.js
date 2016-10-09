@@ -4,19 +4,21 @@ import * as feedActions from '../actions/feeds'
 import styles from './Main.css'
 
 class Main extends Component {
-  state = {toggler: true}
+  state = {
+    toggled: false,
+  }
 
   handleClick = () => {
-    const {toggler} = this.state
+    const {toggled} = this.state
     const {feeds, updateFeeds} = this.props
-    const newFeeds = feeds.length < 5 ? feeds.concat(['blabla']) : []
-    this.setState({toggler: !toggler})
-    updateFeeds(newFeeds)
+    const full = feeds.length === 5
+    updateFeeds(full ? [] : feeds.concat(['new feed....']))
+    this.setState({toggled: !toggled})
   }
 
   render() {
-    const {toggler} = this.state
-    const {feeds} = this.props
+    const {toggled} = this.state
+    const {feeds, notification, loading} = this.props
 
     return (
       <div className={styles.wrapper}>
@@ -24,16 +26,17 @@ class Main extends Component {
           {this.props.children}
         </div>
 
-        <div className={styles.section}>
+        <div>
           <button
             className={styles.btn}
             onClick={this.handleClick}
           >
-            {toggler ? 'hello' : 'world'}
+            {toggled ? 'Toggled' : 'Not toggled'}
           </button>
-          <div>
-            {feeds.map((feed, idx) => (<p key={`feed-${idx}`}>{feed}</p>))}
-          </div>
+        </div>
+
+        <div className={styles.section}>
+          {feeds && feeds.map((feed, idx) => (<h3 key={`feed-${idx}`}>{feed}</h3>))}
         </div>
       </div>
     )
@@ -45,7 +48,8 @@ Main.propTypes = {
 }
 
 export default connect(
-  ({feeds}) => ({
+  ({feeds: {feeds, loading}}) => ({
     feeds,
+    loading,
   }), feedActions
 )(Main)

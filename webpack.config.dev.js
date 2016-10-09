@@ -1,5 +1,3 @@
-'use strict'
-
 const webpack = require('webpack')
 const config = require('./webpack.config')
 
@@ -11,7 +9,6 @@ const hotreloadEntry = (entry) => {
     return result
   }, {})
 }
-
 
 module.exports = Object.assign({}, config, {
   entry: hotreloadEntry(config.entry),
@@ -33,12 +30,16 @@ module.exports = Object.assign({}, config, {
       },
     ]),
   }),
-  plugins: config.plugins.concat([
+  plugins: [
+    new webpack.DefinePlugin({
+      __DEV__: true,
+      'process.env': {NODE_ENV: JSON.stringify(`development`)},
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       filename: 'common.js',
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-  ]),
+  ],
 })

@@ -10,3 +10,13 @@
   margin: auto;
   max-width: 960px;
 }
+
+.brand {
+  font-size: 32px;
+}
+
+.notifications {
+  display: inline-flex;
+  align-items: center;
+  margin: auto 2em;
+}

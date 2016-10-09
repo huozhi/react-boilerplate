@@ -2,10 +2,16 @@ const path = require('path')
 const webpack = require('webpack')
 const joinPath = path.join.bind(null, __dirname)
 
-
 module.exports = {
   entry: {
     app: [joinPath('src/index.js')],
+    common: [
+      'react',
+      'react-dom',
+      'react-router',
+      'redux',
+      'redux-actions',
+    ],
   },
   output: {
     publicPath: '/',
@@ -32,12 +38,6 @@ module.exports = {
   postcss: webpack => [
     require('postcss-import')({addDependencyTo: webpack}),
     require('postcss-cssnext'),
-  ],
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {NODE_ENV: JSON.stringify()},
-      __DEV__: process.env.NODE_ENV !== 'production',
-    }),
   ],
   devServer: {
     hot: true,

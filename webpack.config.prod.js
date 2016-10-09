@@ -1,16 +1,10 @@
-'use strict'
-
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const config = require('./webpack.config')
 
-
 module.exports = Object.assign({}, config, {
-  entry: Object.assign(config.entry, {
-    common: ['react', 'react-dom'],
-  }),
   output: Object.assign({}, config.output, {
     filename: '[name].[hash].js',
   }),
@@ -28,7 +22,11 @@ module.exports = Object.assign({}, config, {
       },
     ]),
   }),
-  plugins: config.plugins.concat([
+  plugins: [
+    new webpack.DefinePlugin({
+      __DEV__: true,
+      'process.env': {NODE_ENV: JSON.stringify(`production`)},
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'index.html'),
@@ -43,5 +41,5 @@ module.exports = Object.assign({}, config, {
       compressor: {warnings: false},
       output: {comments: false},
     }),
-  ]),
+  ],
 })
