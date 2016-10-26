@@ -11,6 +11,8 @@ module.exports = {
       'react-router',
       'redux',
       'redux-actions',
+      'redux-thunk',
+      'redux-promise-middleware',
     ],
   },
   output: {

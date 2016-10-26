@@ -4,11 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const config = require('./webpack.config')
 
-module.exports = Object.assign({}, config, {
-  output: Object.assign({}, config.output, {
+module.exports = Object.assign(config, {
+  output: Object.assign(config.output, {
     filename: '[name].[hash].js',
   }),
-  module: Object.assign({}, config.module, {
+  module: Object.assign(config.module, {
     loaders: config.module.loaders.concat([
       {
         test: /\.js$/,
@@ -25,7 +25,7 @@ module.exports = Object.assign({}, config, {
   plugins: [
     new webpack.DefinePlugin({
       __DEV__: true,
-      'process.env': {NODE_ENV: JSON.stringify(`production`)},
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',

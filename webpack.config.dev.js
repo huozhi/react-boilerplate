@@ -10,13 +10,13 @@ const hotreloadEntry = (entry) => {
   }, {})
 }
 
-module.exports = Object.assign({}, config, {
+module.exports = Object.assign(config, {
   entry: hotreloadEntry(config.entry),
-  output: Object.assign({}, config.output, {
+  output: Object.assign(config.output, {
     filename: '[name].js',
   }),
   devtool: 'eval-source-map',
-  module: Object.assign({}, config.module, {
+  module: Object.assign(config.module, {
     loaders: config.module.loaders.concat([
       {
         test: /\.js$/,
@@ -33,7 +33,7 @@ module.exports = Object.assign({}, config, {
   plugins: [
     new webpack.DefinePlugin({
       __DEV__: true,
-      'process.env': {NODE_ENV: JSON.stringify(`development`)},
+      'process.env.NODE_ENV': JSON.stringify('development'),
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
