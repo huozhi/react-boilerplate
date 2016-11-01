@@ -1,9 +1,11 @@
+import {camelizeKeys, decamelize} from 'humps'
+
 export const param = (query={}) => (
   Object.keys(query)
     .map(key => {
       const value = query[key]
       if (value !== undefined && value !== null) {
-        return `${key}=${encodeURIComponent(value)}`
+        return `${decamelize(key)}=${encodeURIComponent(value)}`
       }
     })
     .join('&')
@@ -50,7 +52,7 @@ const http = (url, options={}) => {
 
   return fetch(url, options).then(r => {
     if (r.ok) {
-      return isJson(r) ? r.json() : r.text()
+      return isJson(r) ? r.json().then(j => camelizeKeys(j)) : r.text()
     } else {
       return isJson(r)
         ? r.json().then(j => Promise.reject({...j, status: r.status}))
