@@ -1,11 +1,11 @@
-import {camelizeKeys, decamelize} from 'humps'
+import {camelizeKeys, decamelizeKeys} from 'humps'
 
 export const param = (query={}) => (
-  Object.keys(query)
+  Object.keys(decamelizeKeys(query))
     .map(key => {
-      const value = query[key]
+     const value = query[key]
       if (value !== undefined && value !== null) {
-        return `${decamelize(key)}=${encodeURIComponent(value)}`
+        return `${key}=${encodeURIComponent(value)}`
       }
     })
     .join('&')
@@ -44,7 +44,7 @@ const http = (url, options={}) => {
     !(options.body instanceof FormData) &&
     (options.method === 'POST' || options.method === 'PUT' || options.method === 'PATCH')
   ) {
-    options.body = JSON.stringify(options.body)
+    options.body = JSON.stringify(decamelizeKeys(options.body))
     Object.assign(options.headers, {
       'Content-Type': 'application/json'
     })
