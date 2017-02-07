@@ -1,5 +1,6 @@
 'use strict'
 
+const http = require('http')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -44,7 +45,10 @@ app.use((req, res, next) => {
 app.use(router)
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './index-dev.html'))
+  req.pipe(http.get({port}, r => {
+    res.writeHead(r.statusCode, r.headers)
+    r.pipe(res)
+  }))
 })
 
 app.use((req, res) => {

@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const joinPath = path.join.bind(null, __dirname)
 
 module.exports = {
@@ -41,13 +42,20 @@ module.exports = {
     require('postcss-import')({addDependencyTo: webpack}),
     require('postcss-cssnext'),
   ],
-  devServer: {
-    hot: true,
-    inline: true,
-    stats: {
-      colors: true,
-      chunks: false,
-      chunkModules: false,
-    },
-  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.join(__dirname, 'index.html'),
+      minify: false,
+    }),
+  ]
+  // devServer: {
+  //   hot: true,
+  //   inline: true,
+  //   stats: {
+  //     colors: true,
+  //     chunks: false,
+  //     chunkModules: false,
+  //   },
+  // },
 }

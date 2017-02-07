@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const config = require('./webpack.config')
-
+const merge = require('webpack-merge')
 const hotMiddlewareScript = 'webpack-hot-middleware/client'
 
 const hotreloadEntry = (entry) => {
@@ -10,14 +10,14 @@ const hotreloadEntry = (entry) => {
   }, {})
 }
 
-module.exports = Object.assign(config, {
+module.exports = merge(config, {
   entry: hotreloadEntry(config.entry),
-  output: Object.assign(config.output, {
+  output: {
     filename: '[name].js',
-  }),
+  },
   devtool: 'eval-source-map',
-  module: Object.assign(config.module, {
-    loaders: config.module.loaders.concat([
+  module: {
+    loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -28,8 +28,8 @@ module.exports = Object.assign(config, {
         include: /src/,
         loader: 'style!css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:3]!postcss',
       },
-    ]),
-  }),
+    ],
+  },
   plugins: [
     new webpack.DefinePlugin({
       __DEV__: true,
