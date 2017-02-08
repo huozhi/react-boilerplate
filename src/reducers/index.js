@@ -6,5 +6,5 @@ import notifications from './notifications'
 export default combineReducers({
   routing,
   feeds,
-  notifications,
+  notifications
 })

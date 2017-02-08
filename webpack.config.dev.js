@@ -13,7 +13,7 @@ const hotreloadEntry = (entry) => {
 module.exports = merge(config, {
   entry: hotreloadEntry(config.entry),
   output: {
-    filename: '[name].js',
+    filename: '[name].js'
   },
   devtool: 'eval-source-map',
   module: {
@@ -21,25 +21,25 @@ module.exports = merge(config, {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'react-hot!babel',
+        loader: 'react-hot!babel'
       },
       {
         test: /\.css$/,
         include: /src/,
-        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:3]!postcss',
-      },
-    ],
+        loader: 'style!css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:3]!postcss'
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
       __DEV__: true,
-      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.NODE_ENV': JSON.stringify('development')
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
-      filename: 'common.js',
+      filename: 'common.js'
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+    new webpack.HotModuleReplacementPlugin()
+  ]
 })

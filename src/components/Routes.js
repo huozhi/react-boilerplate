@@ -5,7 +5,7 @@ import Main from './Main'
 
 const Routes = () => (
   <Router history={browserHistory}>
-    <Route path="/" component={App}>
+    <Route path='/' component={App}>
       <IndexRoute component={Main} />
     </Route>
   </Router>

@@ -1,7 +1,6 @@
 'use strict'
 
 const http = require('http')
-const path = require('path')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const express = require('express')
@@ -23,8 +22,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
   stats: {
     colors: true,
     chunks: false,
-    chunkModules: false,
-  },
+    chunkModules: false
+  }
 }))
 app.use(require('webpack-hot-middleware')(compiler))
 

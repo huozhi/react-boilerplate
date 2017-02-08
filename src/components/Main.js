@@ -5,7 +5,7 @@ import styles from './Main.css'
 
 class Main extends Component {
   state = {
-    toggled: false,
+    toggled: false
   }
 
   handleClick = () => {
@@ -18,7 +18,7 @@ class Main extends Component {
 
   render() {
     const {toggled} = this.state
-    const {feeds, notification, loading} = this.props
+    const {feeds} = this.props
 
     return (
       <div className={styles.wrapper}>
@@ -44,12 +44,12 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  children: React.PropTypes.node,
+  children: React.PropTypes.node
 }
 
 export default connect(
   ({feeds: {feeds, loading}}) => ({
     feeds,
-    loading,
+    loading
   }), feedActions
 )(Main)

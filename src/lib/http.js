@@ -1,9 +1,9 @@
 import {camelizeKeys, decamelizeKeys} from 'humps'
 
-export const param = (query={}) => (
+export const param = (query = {}) => (
   Object.keys(decamelizeKeys(query))
     .map(key => {
-     const value = query[key]
+      const value = query[key]
       if (value !== undefined && value !== null) {
         return `${key}=${encodeURIComponent(value)}`
       }
@@ -24,13 +24,13 @@ const isJson = (response) => {
   return type && type.indexOf('application/json') !== -1
 }
 
-const http = (url, options={}) => {
+const http = (url, options = {}) => {
   options = Object.assign({}, options, {
     mode: 'cors',
     credentials: 'include',
     headers: {
-      'accept': 'application/json, text/plain, */*',
-    },
+      'accept': 'application/json, text/plain, */*'
+    }
   })
 
   if (typeof options.query === 'object') {

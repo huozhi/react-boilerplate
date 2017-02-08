@@ -5,7 +5,7 @@ import rootReducer from '../reducers'
 
 const middlewares = [
   thunkMiddleware,
-  promiseMiddleware(),
+  promiseMiddleware()
 ]
 
 export default function configureStore(initialState) {

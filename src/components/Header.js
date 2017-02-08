@@ -27,6 +27,6 @@ class Header extends Component {
 export default connect(
   ({notifications: {loading, message}}) => ({
     loading,
-    message,
+    message
   }), notificationActions
 )(Header)

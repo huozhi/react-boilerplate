@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const joinPath = path.join.bind(null, __dirname)
 
@@ -13,41 +12,41 @@ module.exports = {
       'redux',
       'redux-actions',
       'redux-thunk',
-      'redux-promise-middleware',
-    ],
+      'redux-promise-middleware'
+    ]
   },
   output: {
     publicPath: '/',
-    path: joinPath('dist'),
+    path: joinPath('dist')
   },
   module: {
     loaders: [
       {
         test: /\.(png|jpe?g)$/,
-        loader: 'file?name=images/[name].[ext]',
-      },
-    ],
+        loader: 'file?name=images/[name].[ext]'
+      }
+    ]
   },
   eslint: {
-    configFile: joinPath('.eslintrc'),
+    configFile: joinPath('.eslintrc')
   },
   preLoaders: [
     {
       test: /\.js$/,
       loader: 'eslint',
-      exclude: /node_modules/,
-    },
+      exclude: /node_modules/
+    }
   ],
   postcss: webpack => [
     require('postcss-import')({addDependencyTo: webpack}),
-    require('postcss-cssnext'),
+    require('postcss-cssnext')
   ],
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'index.html'),
-      minify: false,
-    }),
+      minify: false
+    })
   ]
   // devServer: {
   //   hot: true,
