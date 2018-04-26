@@ -1,13 +1,13 @@
 import React from 'react'
-import {Router, Route, IndexRoute, browserHistory} from 'react-router'
+import {Switch, Router, Route, IndexRoute} from 'react-router'
+import createBrowserHistory from 'history/createBrowserHistory'
 import App from './App'
-import Main from './Main'
+
+const browserHistory = createBrowserHistory()
 
 const Routes = () => (
   <Router history={browserHistory}>
-    <Route path='/' component={App}>
-      <IndexRoute component={Main} />
-    </Route>
+    <Route exact path='/' component={App} />
   </Router>
 )
 

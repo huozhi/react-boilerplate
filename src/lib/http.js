@@ -1,7 +1,6 @@
-import {camelizeKeys, decamelizeKeys} from 'humps'
-
 export const param = (query = {}) => (
-  Object.keys(decamelizeKeys(query))
+  Object.keys(query)
+    .sort()
     .map(key => {
       const value = query[key]
       if (value !== undefined && value !== null) {
@@ -44,7 +43,7 @@ const http = (url, options = {}) => {
     !(options.body instanceof FormData) &&
     (options.method === 'POST' || options.method === 'PUT' || options.method === 'PATCH')
   ) {
-    options.body = JSON.stringify(decamelizeKeys(options.body))
+    options.body = JSON.stringify(options.body)
     Object.assign(options.headers, {
       'Content-Type': 'application/json'
     })
@@ -52,7 +51,7 @@ const http = (url, options = {}) => {
 
   return fetch(url, options).then(r => {
     if (r.ok) {
-      return isJson(r) ? r.json().then(j => camelizeKeys(j)) : r.text()
+      return isJson(r) ? r.json() : r.text()
     } else {
       return isJson(r)
         ? r.json().then(j => Promise.reject({...j, status: r.status}))

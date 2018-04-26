@@ -12,7 +12,7 @@ export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
     applyMiddleware(...middlewares),
     // @see https://github.com/zalmoxisus/redux-devtools-extension
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   ))
 
   if (module.hot) {

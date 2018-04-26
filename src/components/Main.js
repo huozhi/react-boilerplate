@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import * as feedActions from '../actions/feeds'
 import styles from './Main.css'
 
-class Main extends Component {
+class Main extends React.Component {
   state = {
     toggled: false
   }
@@ -41,10 +41,6 @@ class Main extends Component {
       </div>
     )
   }
-}
-
-Main.propTypes = {
-  children: React.PropTypes.node
 }
 
 export default connect(

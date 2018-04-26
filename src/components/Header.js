@@ -1,13 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
-import * as notificationActions from '../actions/notifications'
 import styles from './Header.css'
 
-class Header extends Component {
-  componentDidMount() {
-    this.props.fetchNotification()
-  }
-
+class Header extends React.Component {
   render() {
     const {loading, message} = this.props
     return (
@@ -24,9 +19,4 @@ class Header extends Component {
   }
 }
 
-export default connect(
-  ({notifications: {loading, message}}) => ({
-    loading,
-    message
-  }), notificationActions
-)(Header)
+export default Header

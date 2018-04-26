@@ -1,7 +1,4 @@
 import 'whatwg-fetch'
-import 'core-js/fn/array/find'
-import 'core-js/fn/object/values'
-import 'core-js/fn/string/starts-with'
 import React from 'react'
 import {Provider} from 'react-redux'
 import ReactDOM from 'react-dom'

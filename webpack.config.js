@@ -1,60 +1,75 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const joinPath = path.join.bind(null, __dirname)
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
+const resolve = path.resolve.bind(null, __dirname)
+
+const isProd = process.env.NODE_ENV === 'production'
+
+const devServerPort = 8080
+
+const plugins = [
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: './index.html',
+    minify: false
+  }),
+]
+
+const customizedMinialStats = {
+  colors: true,
+  modules: false,
+  chunks: false,
+  chunkModules: false,
+  chunkOrigins: false,
+}
+
+const devServer = {
+  hot: true,
+  inline: true,
+  port: devServerPort,
+  stats: customizedMinialStats,
+}
+
+if (isProd) {
+  plugins.push(
+    new UglifyJsPlugin()
+  )
+}
 
 module.exports = {
   entry: {
-    app: [joinPath('src/index.js')],
-    common: [
-      'react',
-      'react-dom',
-      'react-router',
-      'redux',
-      'redux-actions',
-      'redux-thunk',
-      'redux-promise-middleware'
-    ]
+    bundle: resolve('src/index.js'),
   },
   output: {
     publicPath: '/',
-    path: joinPath('dist')
+    filename: '[name].js',
+    path: resolve('dist'),
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.(png|jpe?g)$/,
-        loader: 'file?name=images/[name].[ext]'
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [{loader: 'babel-loader'}]
+      },
+      {
+        test: /\.css/,
+        use: [
+          {loader: 'style-loader'},
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]'
+            }
+          }
+        ]
       }
     ]
   },
-  eslint: {
-    configFile: joinPath('.eslintrc')
-  },
-  preLoaders: [
-    {
-      test: /\.js$/,
-      loader: 'eslint',
-      exclude: /node_modules/
-    }
-  ],
-  postcss: webpack => [
-    require('postcss-import')({addDependencyTo: webpack}),
-    require('postcss-cssnext')
-  ],
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.join(__dirname, 'index.html'),
-      minify: false
-    })
-  ]
-  // devServer: {
-  //   hot: true,
-  //   inline: true,
-  //   stats: {
-  //     colors: true,
-  //     chunks: false,
-  //     chunkModules: false,
-  //   },
-  // },
+  plugins,
+  devServer,
+  mode: 'none',
+  stats: customizedMinialStats,
 }
