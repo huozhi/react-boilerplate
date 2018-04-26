@@ -21,7 +21,7 @@ module.exports = merge(config, {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'react-hot!babel'
+        loader: 'babel'
       },
       {
         test: /\.css$/,

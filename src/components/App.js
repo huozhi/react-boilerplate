@@ -1,12 +1,13 @@
 import React from 'react'
 import Header from './Header'
 import styles from './App.css'
+import Main from './Main'
 
-const App = ({children}) => {
+const App = () => {
   return (
     <div className={styles.app}>
       <Header />
-      {children}
+      <Main />
     </div>
   )
 }
