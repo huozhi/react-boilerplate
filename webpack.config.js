@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
@@ -13,6 +14,10 @@ const plugins = [
     filename: 'index.html',
     template: './index.html',
     minify: false
+  }),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   }),
 ]
 
@@ -37,13 +42,13 @@ if (isProd) {
   )
 }
 
-module.exports = {
-  entry: {
-    bundle: resolve('src/index.js'),
-  },
+const config = {
+  entry: [
+    './src/index.js',
+  ],
   output: {
     publicPath: '/',
-    filename: '[name].js',
+    filename: 'app.js',
     path: resolve('dist'),
   },
   module: {
@@ -51,7 +56,15 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [{loader: 'babel-loader'}]
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              plugins: ['react-hot-loader/babel'],
+            },
+          }
+        ]
       },
       {
         test: /\.css/,
@@ -70,6 +83,11 @@ module.exports = {
   },
   plugins,
   devServer,
-  mode: 'none',
   stats: customizedMinialStats,
 }
+
+if (process.env.NODE_ENV === 'development') {
+  config.entry = ['webpack-hot-middleware/client'].concat(config.entry)
+}
+
+module.exports = config

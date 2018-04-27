@@ -1,7 +1,9 @@
 import React from 'react'
+import {hot} from 'react-hot-loader'
 import Header from './Header'
 import styles from './App.css'
 import Main from './Main'
+
 
 const App = () => {
   return (
@@ -12,4 +14,4 @@ const App = () => {
   )
 }
 
-export default App
+export default process.env.NODE_ENV === 'production' ? App : hot(module)(App)

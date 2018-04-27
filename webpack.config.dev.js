@@ -39,7 +39,6 @@ module.exports = merge(config, {
       name: 'common',
       filename: 'common.js'
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ]
 })
