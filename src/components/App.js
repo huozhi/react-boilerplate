@@ -1,13 +1,13 @@
 import React from 'react'
 import {hot} from 'react-hot-loader'
 import Header from './Header'
-import styles from './App.css'
+import './App.css'
 import Main from './Main'
 
 
 const App = () => {
   return (
-    <div className={styles.app}>
+    <div className='app'>
       <Header />
       <Main />
     </div>

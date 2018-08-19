@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import * as feedActions from '../actions/feeds'
-import styles from './Main.css'
+import './Main.css'
 
 class Main extends React.Component {
   state = {
@@ -21,21 +21,21 @@ class Main extends React.Component {
     const {feeds} = this.props
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.section}>
+      <div className='wrapper'>
+        <div className='section'>
           {this.props.children}
         </div>
 
         <div>
           <button
-            className={styles.btn}
+            className='btn'
             onClick={this.handleClick}
           >
             {toggled ? 'Toggled' : 'Not toggled'}
           </button>
         </div>
 
-        <div className={styles.section}>
+        <div className='section'>
           {feeds && feeds.map((feed, idx) => (<h3 key={`feed-${idx}`}>{feed}</h3>))}
         </div>
       </div>

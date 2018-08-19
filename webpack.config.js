@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const resolve = path.resolve.bind(null, __dirname)
 
@@ -19,6 +20,7 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   }),
+  new ExtractTextPlugin('style.css'),
 ]
 
 const customizedMinialStats = {
@@ -38,12 +40,13 @@ const devServer = {
 
 if (isProd) {
   plugins.push(
-    new UglifyJsPlugin()
+    new UglifyJsPlugin(),
   )
 }
 
 const config = {
   entry: [
+    './src/index.css',
     './src/index.js',
   ],
   output: {
@@ -68,16 +71,10 @@ const config = {
       },
       {
         test: /\.css/,
-        use: [
-          {loader: 'style-loader'},
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]'
-            }
-          }
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader']
+        })
       }
     ]
   },

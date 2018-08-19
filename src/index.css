@@ -1,0 +1,25 @@
+html,
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 15px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+  color: #4d4d4d;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 300;
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, p, span {
+  margin: 0;
+}
+
+input, button, textarea {
+  outline: none;
+}
+
