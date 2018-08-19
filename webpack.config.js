@@ -81,8 +81,4 @@ const config = {
   stats: customizedMinialStats,
 }
 
-if (process.env.NODE_ENV === 'development') {
-  config.entry = ['webpack-hot-middleware/client'].concat(config.entry)
-}
-
 module.exports = config
