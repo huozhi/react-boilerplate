@@ -45,9 +45,6 @@
     "webpack": "3.11.0",
     "webpack-dev-server": "2.11.2"
   },
-  "engines": {
-    "node": ">=6.9.0"
-  },
   "license": "MIT",
   "dependencies": {
     "history": "^4.7.2"
