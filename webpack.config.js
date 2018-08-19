@@ -4,8 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const resolve = path.resolve.bind(null, __dirname)
-
 const isProd = process.env.NODE_ENV === 'production'
 
 const devServerPort = 8080
@@ -52,7 +50,7 @@ const config = {
   output: {
     publicPath: '/',
     filename: 'app.js',
-    path: resolve('dist'),
+    path: path.resolve('dist'),
   },
   module: {
     rules: [
